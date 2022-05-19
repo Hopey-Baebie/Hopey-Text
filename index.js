@@ -1,20 +1,21 @@
 window.addEventListener('load', () => {
     const form = document.querySelector("#task-form");
     const input = document.querySelector("#task-input");
-    const list_el = document.querySelector("#tasks");
+    const tbody_el = document.querySelector("#tasks");
+    const ol_el = document.querySelector("#ordered");
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
     const task = input.value;
 
-    if(!task) {
-        alert("Please write a task!");
-        return;
-    }
+    const task_list_el = document.createElement("li");
+    task_list_el.classList.add("list");
 
     const task_el = document.createElement("div");
     task_el.classList.add("task");
+
+    task_list_el.appendChild(task_el);
 
     const task_content_el = document.createElement("div");
     task_content_el.classList.add("content");
@@ -45,7 +46,9 @@ window.addEventListener('load', () => {
 
     task_el.appendChild(task_actions_el);
 
-    list_el.appendChild(task_el);
+    ol_el.appendChild(task_list_el);
+
+    tbody_el.appendChild(ol_el);
 
     input.value = "";
 
@@ -61,7 +64,7 @@ window.addEventListener('load', () => {
     });
 
     task_delete_el.addEventListener("click", () => {
-        list_el.removeChild(task_el);
+        ol_el.removeChild(task_list_el);
     });
     
     })
